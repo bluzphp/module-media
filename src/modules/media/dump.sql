@@ -22,3 +22,5 @@ VALUES
   (2,'media','Upload'),
   (3,'media','Upload')
 ;
+
+UNLOCK TABLES;
