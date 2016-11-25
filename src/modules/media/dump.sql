@@ -1,5 +1,5 @@
 # Media for all modules
-CREATE TABLE IF NOT EXISTS media
+CREATE TABLE IF NOT EXISTS `media`
 (
   id BIGINT(20) PRIMARY KEY NOT NULL AUTO_INCREMENT,
   userId BIGINT(20) unsigned NOT NULL,
