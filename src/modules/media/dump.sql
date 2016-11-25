@@ -15,12 +15,10 @@ CREATE TABLE IF NOT EXISTS media
 );
 
 LOCK TABLES `acl_privileges` WRITE;
-
 REPLACE INTO `acl_privileges` (`roleId`, `module`, `privilege`)
 VALUES
   (2,'media','Management'),
   (2,'media','Upload'),
   (3,'media','Upload')
 ;
-
 UNLOCK TABLES;
