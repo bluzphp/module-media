@@ -11,15 +11,13 @@ install:
   - composer create-project bluzphp/skeleton --stability=dev
   # Database
   - mysql -e 'CREATE DATABASE bluz;'
-  # composer reuire
   - cd skeleton
+  - mysql -uroot bluz < structure.ddl
+  - mysql -uroot bluz < dump.sql
+  # composer require
   - ENV=dev composer require bluzphp/module-media
   # Newman
   - npm install -g newman@1
-before_script:
-  # Database
-  - mysql -uroot bluz < structure.ddl
-  - mysql -uroot bluz < dump.sql
 script:
   - mkdir .reports
   # Code style
