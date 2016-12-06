@@ -12,8 +12,7 @@ install:
   # Database
   - mysql -e 'CREATE DATABASE bluz;'
   - cd skeleton
-  - mysql -uroot bluz < structure.ddl
-  - mysql -uroot bluz < dump.sql
+  - vendor/bin/phinx migrate -e default
   # composer require
   - ENV=dev composer require bluzphp/module-media
   # Newman
