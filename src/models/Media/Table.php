@@ -27,7 +27,7 @@ class Table extends \Bluz\Db\Table
      *
      * @var string
      */
-    protected $table = 'media';
+    protected $name = 'media';
 
     /**
      * Primary key(s)
