@@ -26,9 +26,9 @@ class GridTest extends ControllerTestCase
         $this->setupSuperUserIdentity();
 
         $this->dispatch('/media/grid/');
-        $this->assertModule('media');
-        $this->assertController('grid');
-        $this->assertOk();
-        $this->assertQuery('div[data-spy="grid"]');
+        self::assertModule('media');
+        self::assertController('grid');
+        self::assertOk();
+        self::assertQuery('div[data-spy="grid"]');
     }
 }

@@ -26,8 +26,8 @@ class ListTest extends ControllerTestCase
         $this->setupSuperUserIdentity();
 
         $this->dispatch('/media/list/');
-        $this->assertModule('media');
-        $this->assertController('list');
-        $this->assertOk();
+        self::assertModule('media');
+        self::assertController('list');
+        self::assertOk();
     }
 }

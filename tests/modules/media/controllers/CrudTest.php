@@ -12,16 +12,15 @@ namespace Application\Tests\Media;
 use Application\Tests\ControllerTestCase;
 use Application\Tests\Tools;
 use Application\Exception;
-use Application\Tests\Fixtures\Media\TestFileUpload;
 use Application\Tests\Fixtures\Users\UserFixtureContainer;
 use Application\Tests\Fixtures\Users\UserHasPermission;
-use Bluz\Http;
+use Bluz\Http\RequestMethod;
+use Bluz\Http\StatusCode;
 use Bluz\Proxy\Auth;
 use Bluz\Proxy\Config;
 use Bluz\Proxy\Db;
 use Bluz\Proxy\Request;
 use Zend\Diactoros\UploadedFile;
-use Zend\Dom\Document;
 
 /**
  * @package  Application\Tests\Media
@@ -49,7 +48,6 @@ class CrudTest extends ControllerTestCase
     {
         parent::setUp();
         $this->getApp()->useLayout(false);
-
         Auth::setIdentity(new UserHasPermission(UserFixtureContainer::$fixture));
     }
 
@@ -66,18 +64,19 @@ class CrudTest extends ControllerTestCase
 
         $file = new UploadedFile($path, filesize($path), UPLOAD_ERR_OK, 'test.jpg', 'image/jpeg');
 
-        $request = $this->prepareRequest(
+        $request = self::prepareRequest(
             'media/crud',
             [],
             ['title' => 'test'],
-            Request::METHOD_POST
+            RequestMethod::POST
         )->withUploadedFiles(['file' => $file]);
 
         Request::setInstance($request);
+
         $this->getApp()->process();
 
-        $this->assertQueryCount('input[name="title"]', 1);
-        $this->assertOk();
+        self::assertQueryCount('input[name="title"]', 1);
+        self::assertOk();
     }
 
     /**
@@ -86,9 +85,9 @@ class CrudTest extends ControllerTestCase
     public function testCreateForm()
     {
         $this->dispatch('/media/crud/');
-        $this->assertOk();
 
-        $this->assertQueryCount('form[method="POST"]', 1);
+        self::assertOk();
+        self::assertQueryCount('form[method="POST"]', 1);
     }
 
     /**
@@ -98,15 +97,15 @@ class CrudTest extends ControllerTestCase
     {
         /*
         $this->dispatchRouter('/media/crud/', ['id' => 1]);
-        $this->assertOk();
+        self::assertOk();
 
-        $this->assertQueryCount('form[method="PUT"]', 1);
+        self::assertQueryCount('form[method="PUT"]', 1);
 
-        $this->assertQueryCount('input[name="id"][value="1"]', 1);
+        self::assertQueryCount('input[name="id"][value="1"]', 1);
         */
         // Remove the following lines when you implement this test.
         // Need to create element with ID
-        $this->markTestIncomplete(
+        self::markTestIncomplete(
             'This test has not been implemented yet.'
         );
     }
@@ -117,6 +116,6 @@ class CrudTest extends ControllerTestCase
     public function testEditFormError()
     {
         $this->dispatch('/media/crud/', ['id' => 100042]);
-        $this->assertResponseCode(404);
+        self::assertResponseCode(StatusCode::NOT_FOUND);
     }
 }
