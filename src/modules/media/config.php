@@ -13,6 +13,6 @@
  * @link     https://github.com/bluzphp/skeleton/wiki/Module-Media
  * @return   array
  */
-return array(
+return [
     'upload_path' => PATH_PUBLIC.'/uploads'
-);
+];

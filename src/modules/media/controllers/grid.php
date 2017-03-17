@@ -42,7 +42,7 @@ return function () {
     }
 
     $lnCol = (integer)(12 / $countCol);
-    
+
     return [
         'countCol' => $countCol,
         'col' => $lnCol,

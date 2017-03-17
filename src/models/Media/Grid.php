@@ -42,6 +42,7 @@ class Grid extends \Bluz\Grid\Grid
         $this->setDefaultLimit(25);
         $this->setAllowOrders(['id', 'login', 'title', 'type', 'created', 'deleted']);
         $this->setAllowFilters(['userId', 'title', 'file']);
+        $this->processSource();
 
         return $this;
     }
