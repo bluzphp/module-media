@@ -18,7 +18,7 @@ use Bluz\Controller\Controller;
  * @return string
  * @throws Exception
  */
-return function($file) {
+return function ($file) {
     /**
      * @var Controller $this
      */

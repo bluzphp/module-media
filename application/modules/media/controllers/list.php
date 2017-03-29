@@ -19,7 +19,7 @@ use Bluz\Controller\Controller;
  * @return array
  * @throws Exception
  */
-return function() {
+return function () {
     /**
      * @var Controller $this
      */

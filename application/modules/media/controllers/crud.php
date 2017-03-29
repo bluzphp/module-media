@@ -29,7 +29,7 @@ use Bluz\Proxy\Session;
  * @throws \Bluz\Application\Exception\ForbiddenException
  * @throws \Bluz\Application\Exception\NotImplementedException
  */
-return function() {
+return function () {
     /**
      * @var Controller $this
      */

@@ -25,7 +25,7 @@ use Zend\Diactoros\UploadedFile;
  * @throws ConfigException
  * @throws Exception
  */
-return function() {
+return function () {
     /**
      * @var Controller $this
      * @var UploadedFile $file

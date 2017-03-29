@@ -71,7 +71,8 @@ class CrudTest extends ControllerTestCase
             'media/crud',
             [],
             ['title' => 'test'],
-            RequestMethod::POST
+            RequestMethod::POST,
+            ['accept' => 'text/html']
         )->withUploadedFiles(['file' => $file]);
 
         Request::setInstance($request);
