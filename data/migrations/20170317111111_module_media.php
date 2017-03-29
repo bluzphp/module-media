@@ -36,6 +36,7 @@ class ModuleMedia extends AbstractMigration
     {
         $table = $this->table('media');
         $table
+            ->addColumn('userId', 'integer')
             ->addColumn('module', 'string', ['length' => 255, 'default' => 'users'])
             ->addColumn('title', 'text')
             ->addColumn('type', 'string', ['length' => 255])
