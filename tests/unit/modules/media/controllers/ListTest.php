@@ -12,6 +12,8 @@ namespace Application\Tests\Media;
 use Application\Tests\ControllerTestCase;
 
 /**
+ * @group    module-media
+ *
  * @package  Application\Tests\Media
  * @author   Anton Shevchuk
  * @created  27.05.2014 14:26
@@ -23,7 +25,7 @@ class ListTest extends ControllerTestCase
      */
     public function testControllerPage()
     {
-        $this->setupSuperUserIdentity();
+        self::setupSuperUserIdentity();
 
         $this->dispatch('/media/list/');
         self::assertModule('media');

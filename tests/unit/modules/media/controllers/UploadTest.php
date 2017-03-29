@@ -12,18 +12,20 @@ namespace Application\Tests\Media;
 use Application\Tests\ControllerTestCase;
 
 /**
+ * @group    module-media
+ *
  * @package  Application\Tests\Media
  * @author   Anton Shevchuk
  * @created  27.05.2014 14:26
  */
-class DeleteTest extends ControllerTestCase
+class UploadTest extends ControllerTestCase
 {
     /**
      * Dispatch module/controller
      */
-    public function testDelete()
+    public function testUpload()
     {
-        $this->markTestIncomplete(
+        self::markTestIncomplete(
             'This test has not been implemented yet.'
         );
     }
@@ -31,9 +33,11 @@ class DeleteTest extends ControllerTestCase
     /**
      * Dispatch module/controller
      */
-    public function testDeleteError()
+    public function testUploadError()
     {
-        $this->dispatch('/media/delete/');
+        self::setupSuperUserIdentity();
+
+        $this->dispatch('media/upload');
         self::assertModule('error');
         self::assertController('index');
     }

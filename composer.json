@@ -4,12 +4,6 @@
   "license": "MIT",
   "description": "bluz media module",
   "require": {
-    "bluzphp/composer-plugin": "1.0"
-  },
-  "extra": {
-    "bluz": {
-      "module_name": "media",
-      "required_models": "media"
-    }
+    "bluzphp/composer-plugin": "~2.0"
   }
 }

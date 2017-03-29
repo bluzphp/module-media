@@ -23,6 +23,9 @@ use Bluz\Proxy\Request;
 use Zend\Diactoros\UploadedFile;
 
 /**
+ * @group    module-media
+ * @group    crud
+ *
  * @package  Application\Tests\Media
  * @author   Anton Shevchuk
  * @created  21.05.14 11:28
@@ -47,7 +50,7 @@ class CrudTest extends ControllerTestCase
     public function setUp()
     {
         parent::setUp();
-        $this->getApp()->useLayout(false);
+        self::getApp()->useLayout(false);
         Auth::setIdentity(new UserHasPermission(UserFixtureContainer::$fixture));
     }
 
