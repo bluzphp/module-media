@@ -18,7 +18,7 @@ use Bluz\Controller\Controller;
  * @return string
  * @throws Exception
  */
-return function ($file) {
+return function($file) {
     /**
      * @var Controller $this
      */
@@ -28,7 +28,7 @@ return function ($file) {
         session_start();
     }
 
-    $key = ini_get("session.upload_progress.prefix") . $file;
+    $key = ini_get("session.upload_progress.prefix").$file;
 
     if (!isset($_SESSION[$key])) {
         throw new Exception("Invalid file identity");

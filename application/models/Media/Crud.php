@@ -67,19 +67,19 @@ class Crud extends \Bluz\Crud\Table
         $originFileName = $fileName;
         $counter = 0;
 
-        while (file_exists($this->uploadDir .'/'. $fileName .'.'. $pathinfo['extension'])) {
+        while (file_exists($this->uploadDir.'/'.$fileName.'.'.$pathinfo['extension'])) {
             $counter++;
-            $fileName = $originFileName .'-'. $counter;
+            $fileName = $originFileName.'-'.$counter;
         }
 
-        $filePath = $this->uploadDir .'/'. $fileName .'.'. $pathinfo['extension'];
+        $filePath = $this->uploadDir.'/'.$fileName.'.'.$pathinfo['extension'];
 
         // Setup new name and move to user directory
         $file->moveTo($filePath);
 
         $publicDir = substr($this->uploadDir, strlen(PATH_PUBLIC) + 1);
 
-        $data['file'] = $publicDir .'/'. $fileName .'.'. $pathinfo['extension'];
+        $data['file'] = $publicDir.'/'.$fileName.'.'.$pathinfo['extension'];
         $data['type'] = $file->getClientMediaType();
 
         $row = $this->getTable()->create();

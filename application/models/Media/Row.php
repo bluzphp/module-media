@@ -58,7 +58,7 @@ class Row extends \Bluz\Db\Row
     public function createThumbnail()
     {
         // set full path
-        $image = new Thumbnail(PATH_PUBLIC .'/'. $this->file);
+        $image = new Thumbnail(PATH_PUBLIC.'/'.$this->file);
         $image->setHeight(self::THUMB_HEIGHT);
         $image->setWidth(self::THUMB_WIDTH);
         $thumb = $image->generate();
@@ -76,11 +76,11 @@ class Row extends \Bluz\Db\Row
      */
     public function deleteFiles()
     {
-        if ($this->file && is_file(PATH_PUBLIC .'/'. $this->file)) {
-            @unlink(PATH_PUBLIC .'/'. $this->file);
+        if ($this->file && is_file(PATH_PUBLIC.'/'.$this->file)) {
+            @unlink(PATH_PUBLIC.'/'.$this->file);
         }
-        if ($this->thumb && is_file(PATH_PUBLIC .'/'. $this->thumb)) {
-            @unlink(PATH_PUBLIC .'/'. $this->thumb);
+        if ($this->thumb && is_file(PATH_PUBLIC.'/'.$this->thumb)) {
+            @unlink(PATH_PUBLIC.'/'.$this->thumb);
         }
     }
 
