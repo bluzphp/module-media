@@ -12,19 +12,63 @@ use Phinx\Migration\AbstractMigration;
 class ModuleMedia extends AbstractMigration
 {
     /**
-     * Migrate Up.
+     * Change Method.
+     *
+     * Write your reversible migrations using this method.
+     *
+     * More information on writing migrations is available here:
+     * http://docs.phinx.org/en/latest/migrations.html#the-abstractmigration-class
+     *
+     * The following commands can be used in this method and Phinx will
+     * automatically reverse them when rolling back:
+     *
+     *    createTable
+     *    renameTable
+     *    addColumn
+     *    renameColumn
+     *    addIndex
+     *    addForeignKey
+     *
+     * Remember to call "create()" or "update()" and NOT "save()" when working
+     * with the Table class.
      */
-    public function up()
+    public function change()
     {
-        $this->execute('CREATE TABLE IF NOT EXISTS media (id BIGINT(20) PRIMARY KEY NOT NULL AUTO_INCREMENT, userId BIGINT(20) unsigned NOT NULL, module VARCHAR(24) DEFAULT \'users\' NOT NULL, title LONGTEXT, type VARCHAR(24), file VARCHAR(255), thumb VARCHAR(255), size INT(11) unsigned NOT NULL, created TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL, updated TIMESTAMP NOT NULL, CONSTRAINT media_users_id_fk FOREIGN KEY (userId) REFERENCES users (id) ON DELETE CASCADE ON UPDATE CASCADE);');
-        $this->execute('REPLACE INTO `acl_privileges` (`roleId`, `module`, `privilege`) VALUES (2,\'media\',\'Management\'), (2,\'media\',\'Upload\'), (3,\'media\',\'Upload\');');
-    }
-    /**
-     * Migrate Down.
-     */
-    public function down()
-    {
-        $this->dropTable('media');
-        $this->execute('DELETE FROM `acl_privileges` WHERE module=\'media\'');
+        $table = $this->table('media');
+        $table
+            ->addColumn('module', 'string', ['length' => 255, 'default' => 'users'])
+            ->addColumn('title', 'text')
+            ->addColumn('type', 'string', ['length' => 255])
+            ->addColumn('file', 'string', ['length' => 255])
+            ->addColumn('thumb', 'string', ['length' => 255])
+            ->addColumn('size', 'integer')
+            ->addTimestamps('created', 'updated')
+            ->addForeignKey('userId', 'users', 'id', [
+                'delete' => 'CASCADE',
+                'update' => 'CASCADE'
+            ])
+            ->create();
+
+        $data = [
+            [
+                'roleId' => 2,
+                'module' => 'media',
+                'privilege' => 'Management'
+            ],
+            [
+                'roleId' => 2,
+                'module' => 'media',
+                'privilege' => 'Upload'
+            ],
+            [
+                'roleId' => 3,
+                'module' => 'media',
+                'privilege' => 'Upload'
+            ],
+        ];
+
+        $privileges = $this->table('acl_privileges');
+        $privileges->insert($data)
+            ->save();
     }
 }
