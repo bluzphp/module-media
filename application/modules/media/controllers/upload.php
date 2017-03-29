@@ -25,7 +25,7 @@ use Zend\Diactoros\UploadedFile;
  * @throws ConfigException
  * @throws Exception
  */
-return function () {
+return function() {
     /**
      * @var Controller $this
      * @var UploadedFile $file
@@ -40,7 +40,7 @@ return function () {
         $original = pathinfo($file->getClientFilename(), PATHINFO_FILENAME);
 
         // rename file to date/time stamp
-        $filename = date('Ymd_Hi') .'.'. pathinfo($file->getClientFilename(), PATHINFO_EXTENSION);
+        $filename = date('Ymd_Hi').'.'.pathinfo($file->getClientFilename(), PATHINFO_EXTENSION);
 
         // switch to JSON response
         $this->useJson();

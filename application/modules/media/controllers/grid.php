@@ -20,7 +20,7 @@ use Bluz\Proxy\Response;
  *
  * @return array
  */
-return function () {
+return function() {
     /**
      * @var Controller $this
      */
