@@ -2,9 +2,6 @@ language: php
 php:
   - 7.0
   - 7.1
-before_install:
-  - nvm install stable
-  - npm update -g npm
 install:
   # Composer
   - composer self-update
@@ -18,8 +15,6 @@ install:
   - vendor/bin/phinx migrate -e default
   - vendor/bin/phinx seed:run
 before_script:
-  # Newman
-  - npm install -g newman
   # Codeception
   - wget http://codeception.com/codecept.phar
 script:
