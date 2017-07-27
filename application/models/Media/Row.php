@@ -4,15 +4,13 @@
  * @link https://github.com/bluzphp/skeleton
  */
 
-/**
- * @namespace
- */
+declare(strict_types=1);
+
 namespace Application\Media;
 
 use Application\Users;
 use Bluz\Proxy\Auth;
 use Bluz\Validator\Traits\Validator;
-use Bluz\Validator\Validator as v;
 use Image\Thumbnail;
 
 /**
@@ -44,10 +42,9 @@ class Row extends \Bluz\Db\Row
      */
     protected function beforeSave()
     {
-        $this->addValidator(
-            'title',
-            v::required()->latinNumeric(' -_.')
-        );
+        $this->addValidator('title')
+            ->required()
+            ->latinNumeric(' -_.');
     }
 
     /**

@@ -4,9 +4,8 @@
  * @link https://github.com/bluzphp/skeleton
  */
 
-/**
- * @namespace
- */
+declare(strict_types=1);
+
 namespace Application\Media;
 
 use Application\Exception;
@@ -97,12 +96,12 @@ class Crud extends \Bluz\Crud\Table
      */
     public function setUploadDir($directory)
     {
-        if (!is_dir($directory) && !@mkdir($directory, 0755, true)) {
-            throw new Exception("Upload folder is not exists and I can't create it");
+        if (!@mkdir($directory, 0755, true) && !is_dir($directory)) {
+            throw new Exception('Upload folder is not exists and I can\'t create it');
         }
 
         if (!is_writable($directory)) {
-            throw new Exception("Upload folder is not writable");
+            throw new Exception('Upload folder is not writable');
         }
 
         $this->uploadDir = $directory;
