@@ -10,6 +10,7 @@
 namespace Application\Tests\Media;
 
 use Application\Tests\ControllerTestCase;
+use Bluz\Http\RequestMethod;
 
 /**
  * @group    module-media
@@ -27,7 +28,7 @@ class ListTest extends ControllerTestCase
     {
         self::setupSuperUserIdentity();
 
-        $this->dispatch('/media/list/');
+        $this->dispatch('/media/list/', [], RequestMethod::GET, true);
         self::assertModule('media');
         self::assertController('list');
         self::assertOk();

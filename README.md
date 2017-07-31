@@ -17,29 +17,13 @@ Usage
 ### Install module
 To install the module run the command:
   
-
-    $ composer require bluzphp/module-media
-
-Then you must enter the environment
-
-
-    Please, enter  your environment[dev, production, testing or another] dev
-
-
-
-If you use no-interaction mode, you must set an environment variable
-  
-
-    $ BLUZ_ENV=dev composer require bluzphp/module-media -n
-
+```bash
+php /vendor/bin/bluzman module:install media
+```
 
 ### Remove module
 To remove the module, run the command:
     
-
-    $ composer remove bluzphp/module-media
-
-
-
-
-    
+```bash
+php /vendor/bin/bluzman module:remove media
+```

@@ -57,9 +57,7 @@ return function () {
     }
     $crud->setUploadDir($path.'/'.$userId.'/media');
 
-    $crudController = new Crud();
-    
-    $crudController->setCrud($crud);
+    $crudController = new Crud($crud);
 
     $crudController->get('system', 'crud/get');
     $crudController->post('system', 'crud/post');
