@@ -96,7 +96,7 @@ class Crud extends \Bluz\Crud\Table
      */
     public function setUploadDir($directory)
     {
-        if (!@mkdir($directory, 0755, true) && !is_dir($directory)) {
+        if (!is_dir($directory) && !@mkdir($directory, 0755, true)) {
             throw new Exception('Upload folder is not exists and I can\'t create it');
         }
 
