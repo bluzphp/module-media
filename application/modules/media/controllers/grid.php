@@ -35,7 +35,7 @@ return function () {
 
     $countCol = Request::getParam('countCol');
 
-    if ($countCol <> null) {
+    if (null !== $countCol) {
         Response::setCookie("countCol", $countCol, time() + 3600, '/');
     } else {
         $countCol = Request::getCookie('countCol', 4);

@@ -35,7 +35,7 @@ return function () {
     $allowTypes = ['image/png', 'image/jpg', 'image/jpeg', 'image/pjpeg', 'image/gif'];
 
     // check media type
-    if ($file && $file->getClientMediaType() && in_array($file->getClientMediaType(), $allowTypes)) {
+    if ($file && $file->getClientMediaType() && in_array($file->getClientMediaType(), $allowTypes, true)) {
         // save original name
         $original = pathinfo($file->getClientFilename(), PATHINFO_FILENAME);
 
@@ -82,14 +82,13 @@ return function () {
             $message = '';
             $errors = $e->getErrors();
             foreach ($errors as $field => $errs) {
-                $message .= join("\n", $errs);
+                $message .= implode("\n", $errs);
             }
             throw new Exception($message);
         }
 
         // displaying file
         return ['filelink' =>  $media->file];
-    } else {
-        throw new Exception('Wrong file type');
     }
+    throw new Exception('Wrong file type');
 };

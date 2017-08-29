@@ -28,10 +28,10 @@ return function ($file) {
         session_start();
     }
 
-    $key = ini_get("session.upload_progress.prefix").$file;
+    $key = ini_get('session.upload_progress.prefix').$file;
 
     if (!isset($_SESSION[$key])) {
-        throw new Exception("Invalid file identity");
+        throw new Exception('Invalid file identity');
     }
 
     $this->useLayout(false);

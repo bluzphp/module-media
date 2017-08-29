@@ -24,7 +24,7 @@ use Bluz\Proxy\Session;
  * @accept JSON
  * @privilege Management
  *
- * @return array
+ * @return Controller
  * @throws Exception
  * @throws \Bluz\Application\Exception\ForbiddenException
  * @throws \Bluz\Application\Exception\NotImplementedException
