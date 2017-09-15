@@ -100,6 +100,11 @@ return function () {
         throw new BadRequestException(implode("\n", $errors));
     }
 
-    // displaying file
-    return ['filelink' =>  $media->file];
+    // displaying file info
+    // `id` for media manager
+    // `filelink` for editor.js
+    return [
+        'id' => $media->id,
+        'filelink' => $media->file
+    ];
 };

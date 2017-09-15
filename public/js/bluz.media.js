@@ -18,6 +18,8 @@ define(['jquery', 'bluz', 'bluz.notify', 'dropzone'], function ($, bluz, notify,
   let previewTemplate = previewNode.parentNode.innerHTML;
   previewNode.parentNode.removeChild(previewNode);
 
+  let progressNode = document.getElementById('progress');
+
   let myDropzone = new Dropzone(uploadNode, {
     url: '/media/upload', // Set the url
     thumbnailWidth: 160,
@@ -29,10 +31,27 @@ define(['jquery', 'bluz', 'bluz.notify', 'dropzone'], function ($, bluz, notify,
     clickable: '.fileinput-button' // Define the element that should be used as click trigger to select files.
   });
 
-  // use element similar to bluz.ajax
-  myDropzone.on('processing', bluz.showLoading);
-  myDropzone.on('complete', bluz.hideLoading);
+  // small userfriendly tips
+  myDropzone.on('dragover', function () {
+    $(uploadNode).css('background-color', '#ddffdd');
+  });
+  myDropzone.on('dragleave dragend drop', function () {
+    $(uploadNode).css('background-color', '#ffffff');
+  });
 
+  // use element similar to bluz.ajax
+  myDropzone.on('processing', function () {
+    $(uploadNode).css('background-color', '#ffffff');
+    bluz.showLoading();
+    $(progressNode).removeClass('hide');
+  });
+  myDropzone.on('complete', function () {
+    bluz.hideLoading();
+    $(progressNode).addClass('hide');
+  });
+  myDropzone.on('totaluploadprogress', function (progress) {
+    $(progressNode).find('.progress-bar').width(parseInt(progress, 10) + '%');
+  });
   // use bluz.notify for errors
   myDropzone.on('error', function (file, errors, XMLHttpRequest) {
     if (XMLHttpRequest.getResponseHeader('Bluz-Notify')) {
@@ -42,11 +61,17 @@ define(['jquery', 'bluz', 'bluz.notify', 'dropzone'], function ($, bluz, notify,
     $(file.previewElement).remove();
   });
 
+  myDropzone.on('success', function (file, response) {
+    // setup delete button
+    $(file.previewElement).find('a[data-ajax-method=delete]').data('id', response.id);
+  });
+
+  // add files to list
   myDropzone.on('addedfile', function (file) {
     let $preview = $(file.previewElement);
 
     // add id to delete button
-    $preview.find('a[data-ajax-method=delete]').attr('data-id', file.id);
+    $preview.find('a[data-ajax-method=delete]').data('id', file.id);
 
     // hookup for preview click
     $preview.find('.panel-body').on('click', function () {
@@ -60,16 +85,12 @@ define(['jquery', 'bluz', 'bluz.notify', 'dropzone'], function ($, bluz, notify,
     });
   });
 
-  // myDropzone.on('uploadprogress', function () {
-  //   console.log(arguments);
-  // });
-
-
+  // load list of all user's images
   $.ajax('/media/list', {
     dataType: 'json',
     success: function (data) {
-      for (let i in data) {
-        let image = data[i];
+      data.forEach(function (element) {
+        let image = element;
         let file = {
           id: image.id,
           name: image.title,
@@ -81,7 +102,7 @@ define(['jquery', 'bluz', 'bluz.notify', 'dropzone'], function ($, bluz, notify,
         myDropzone.emit('addedfile', file);
         myDropzone.emit('thumbnail', file, image.thumb);
         myDropzone.emit('complete', file);
-      }
+      });
     }
   });
 
