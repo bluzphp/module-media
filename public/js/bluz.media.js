@@ -5,7 +5,7 @@
  * @created  02.09.2016 15:08
  */
 /* global define,require*/
-define(['jquery', 'dropzone', 'bluz.notify'], function ($, Dropzone, notify) {
+define(['jquery', 'bluz', 'bluz.notify', 'dropzone'], function ($, bluz, notify, Dropzone) {
   'use strict';
 
   // Upload container
@@ -30,12 +30,8 @@ define(['jquery', 'dropzone', 'bluz.notify'], function ($, Dropzone, notify) {
   });
 
   // use element similar to bluz.ajax
-  myDropzone.on('processing', function () {
-    $('#loading').show();
-  });
-  myDropzone.on('complete', function () {
-    $('#loading').hide();
-  });
+  myDropzone.on('processing', bluz.showLoading);
+  myDropzone.on('complete', bluz.hideLoading);
 
   // use bluz.notify for errors
   myDropzone.on('error', function (file, errors, XMLHttpRequest) {
@@ -43,6 +39,7 @@ define(['jquery', 'dropzone', 'bluz.notify'], function ($, Dropzone, notify) {
       let notifications = $.parseJSON(XMLHttpRequest.getResponseHeader('Bluz-Notify'));
       notify.set(notifications);
     }
+    $(file.previewElement).remove();
   });
 
   myDropzone.on('addedfile', function (file) {
@@ -62,6 +59,10 @@ define(['jquery', 'dropzone', 'bluz.notify'], function ($, Dropzone, notify) {
       myDropzone.emit('removedfile', file);
     });
   });
+
+  // myDropzone.on('uploadprogress', function () {
+  //   console.log(arguments);
+  // });
 
 
   $.ajax('/media/list', {
