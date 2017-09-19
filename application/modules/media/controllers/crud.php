@@ -47,17 +47,7 @@ return function () {
         throw new Exception('User not found');
     }
 
-    $userId = $this->user()->id;
-
-    $crud = Media\Crud::getInstance();
-    // get path from config
-    $path = Config::getModuleData('media', 'upload_path');
-    if (empty($path)) {
-        throw new Exception('Upload path is not configured');
-    }
-    $crud->setUploadDir($path.'/'.$userId.'/media');
-
-    $crudController = new Crud($crud);
+    $crudController = new Crud(Media\Crud::getInstance());
 
     $crudController->get('system', 'crud/get');
     $crudController->post('system', 'crud/post');

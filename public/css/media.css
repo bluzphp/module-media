@@ -1,0 +1,26 @@
+.media-grid > div {
+  width: 250px;
+  margin-left: 20px;
+}
+
+.media-grid .panel-body {
+  overflow: hidden;
+  height: 160px;
+  cursor: pointer;
+  padding: 0;
+  background-size: contain;
+}
+
+.media-grid .panel-body a {
+  overflow: hidden;
+  height: 160px;
+  display:block;
+}
+
+.drop-area {
+  margin-top: 20px;
+  padding-top: 20px;
+  max-height: 480px;
+  overflow-y: scroll;
+  border: 2px dashed rgba(0, 0, 0, 0.1);
+}
