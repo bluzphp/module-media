@@ -33,19 +33,7 @@ return function () {
     );
     $grid = new Media\Grid();
 
-    $countCol = Request::getParam('countCol');
-
-    if ($countCol <> null) {
-        Response::setCookie("countCol", $countCol, time() + 3600, '/');
-    } else {
-        $countCol = Request::getCookie('countCol', 4);
-    }
-
-    $lnCol = (integer)(12 / $countCol);
-
     return [
-        'countCol' => $countCol,
-        'col' => $lnCol,
         'grid' => $grid
     ];
 };

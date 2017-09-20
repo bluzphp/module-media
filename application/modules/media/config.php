@@ -14,5 +14,5 @@
  * @return   array
  */
 return [
-    'upload_path' => PATH_PUBLIC.'/uploads'
+    'upload_path' => 'uploads'
 ];

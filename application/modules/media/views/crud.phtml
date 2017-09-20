@@ -3,7 +3,7 @@
  * @var \Bluz\View\View $this
  */
 ?>
-<?php $uid = uniqid('form_'); ?>
+<?php $uid = uniqid('form_', false); ?>
 <form id="<?=$uid?>" action="<?=$this->url('media', 'crud')?>" class="form-horizontal" method="POST" enctype="multipart/form-data">
     <input type="hidden" name="_method" value="<?=$method?>"/>
     <input type="hidden" name="id" value="<?=$row->id?>"/>
@@ -18,7 +18,7 @@
                     <input type="text" class="form-control" id="name" name="title" value="<?=($row->title)?>" required />
                 </div>
             </div>
-        <?php if ($method == 'POST') : ?>
+        <?php if ($method === 'POST') : ?>
             <div class="form-group">
                 <label class="control-label col-lg-2"><?=__('File')?></label>
                 <div class="col-lg-10">
@@ -48,17 +48,17 @@
                     </p>
                 </div>
             </div>
-        <?php
-            if (substr($row->type, 0, 5) == 'image') :
-        ?>
-        </div>
-        <div class="form-group col-lg-2">
-            <a href="<?=$this->baseUrl($row->file)?>" class="thumbnail bluz-preview">
-                <img src="<?=$this->baseUrl($row->thumb?:$row->file)?>" class="img-polaroid" alt="<?=$row->title?>" />
-            </a>
-        <?php
-            endif;
-        ?>
+            <?php
+                if (0 === strpos($row->type, 'image')) :
+            ?>
+            </div>
+            <div class="form-group col-lg-2">
+                <a href="<?=$this->baseUrl($row->file)?>" class="thumbnail bluz-preview">
+                    <img src="<?=$this->baseUrl($row->thumb?:$row->file)?>" class="img-polaroid" alt="<?=$row->title?>" />
+                </a>
+            <?php
+                endif;
+            ?>
         <?php endif; ?>
         </div>
     </div>

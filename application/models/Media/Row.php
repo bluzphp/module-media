@@ -11,7 +11,7 @@ namespace Application\Media;
 use Application\Users;
 use Bluz\Proxy\Auth;
 use Bluz\Validator\Traits\Validator;
-use Image\Thumbnail;
+use Zend\Diactoros\UploadedFile;
 
 /**
  * Media Row
@@ -34,9 +34,6 @@ class Row extends \Bluz\Db\Row
 {
     use Validator;
 
-    const THUMB_HEIGHT = 196;
-    const THUMB_WIDTH = 196;
-
     /**
      * {@inheritdoc}
      */
@@ -45,40 +42,6 @@ class Row extends \Bluz\Db\Row
         $this->addValidator('title')
             ->required()
             ->latinNumeric(' -_.');
-    }
-
-    /**
-     * Create thumbnail
-     *
-     * @return string
-     */
-    public function createThumbnail()
-    {
-        // set full path
-        $image = new Thumbnail(PATH_PUBLIC.'/'.$this->file);
-        $image->setHeight(self::THUMB_HEIGHT);
-        $image->setWidth(self::THUMB_WIDTH);
-        $thumb = $image->generate();
-        // crop full path
-        $thumb = substr($thumb, strlen(PATH_PUBLIC) + 1);
-        $this->thumb = $thumb;
-
-        return $thumb;
-    }
-
-    /**
-     * Delete Files
-     *
-     * @return void
-     */
-    public function deleteFiles()
-    {
-        if ($this->file && is_file(PATH_PUBLIC.'/'.$this->file)) {
-            @unlink(PATH_PUBLIC.'/'.$this->file);
-        }
-        if ($this->thumb && is_file(PATH_PUBLIC.'/'.$this->thumb)) {
-            @unlink(PATH_PUBLIC.'/'.$this->thumb);
-        }
     }
 
     /**
@@ -100,9 +63,6 @@ class Row extends \Bluz\Db\Row
         } else {
             $this->userId = Users\Table::SYSTEM_USER;
         }
-
-        // create thumbnail
-        $this->createThumbnail();
     }
 
     /**
@@ -123,5 +83,46 @@ class Row extends \Bluz\Db\Row
     protected function afterDelete()
     {
         $this->deleteFiles();
+    }
+
+    /**
+     * processRequestFile
+     *
+     * @param UploadedFile $file
+     *
+     * @return void
+     * @throws \Bluz\Config\ConfigException
+     */
+    public function processRequestFile($file)
+    {
+        // process request image
+        $fileManager = new Manager($this, $file);
+
+        // move request file
+        $fileManager->moveToDir($this->userId.'/'.$this->module);
+
+        // fill row data
+        $this->title = $this->title ?: pathinfo($file->getClientFilename(), PATHINFO_FILENAME);
+        $this->file = $fileManager->getPublicPath();
+        $this->type = $file->getClientMediaType();
+        $this->size = $file->getSize();
+
+        // create thumbnail
+        $this->thumb = $fileManager->createThumbnail();
+    }
+
+    /**
+     * Delete Files
+     *
+     * @return void
+     */
+    public function deleteFiles()
+    {
+        if ($this->file && is_file(PATH_PUBLIC.'/'.$this->file)) {
+            @unlink(PATH_PUBLIC.'/'.$this->file);
+        }
+        if ($this->thumb && is_file(PATH_PUBLIC.'/'.$this->thumb)) {
+            @unlink(PATH_PUBLIC.'/'.$this->thumb);
+        }
     }
 }

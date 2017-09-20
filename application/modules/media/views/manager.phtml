@@ -1,60 +1,85 @@
+<?php
+/**
+ * @var \Bluz\View\View $this
+ */
+echo $this->style('css/media.css');
+?>
 <script>
-    require(['bluz.media']);
+  require(['bluz.media', 'jquery'], (media, $) => {
+    window.media = media;
+    media.load();
+  });
+  if (window.media !== undefined) {
+    window.media.load();
+  }
 </script>
 
 <div class="modal-content">
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title"><?= __('Images') ?></h4>
-    </div>
-    <div id="upload" class="modal-body clearfix">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+    <h4 class="modal-title"><?= __('Images') ?></h4>
+  </div>
+  <div id="media-upload" class="modal-body clearfix">
+    <div class="row">
+      <div class="col-lg-2">
         <div class="btn btn-success fileinput-button dz-clickable">
-            <i class="glyphicon glyphicon-plus"></i>
-            <span><?= __('Add files...') ?></span>
-        </div>
-
-        <div id="previews" class="drop-area clearfix">
-            <div id="template" class="file-row pull-left">
-                <!-- This is used as the file preview template -->
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <div class="row">
-                            <div class="col-lg-8 text-overflow" data-dz-name></div>
-                            <div class="col-lg-4 text-right">
-                                <a href="<?=$this->url('media', 'crud')?>" class="confirm btn btn-xs btn-danger ajax" data-ajax-method="delete">
-                                    <i class="fa fa-trash-o"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel-body text-center">
-                        <img data-dz-thumbnail/>
-                        <strong class="error text-danger" data-dz-errormessage></strong>
-                    </div>
-                    <div class="panel-footer" data-dz-size></div>
-                </div>
-            </div>
-        </div>
-
+          <i class="glyphicon glyphicon-plus"></i>
+          <span><?= __('Add files...') ?></span>
+        </div></div>
+      <div class="col-lg-8">
+        <div id="media-progress" class="progress hide">
+          <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+        </div></div>
     </div>
-</div>
+    <div id="media-previews" class="media-grid drop-area clearfix">
+      <?php foreach ($images as $row) : ?>
+        <div class="image-preview pull-left" data-id="<?=$row['id']?>" data-thumb="<?=$row['thumb']?>" data-file="<?=$row['file']?>">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <div class="row">
+                <div class="col-lg-7 text-overflow">
+                    <?= esc($row['title']) ?>
+                </div>
+                <div class="col-lg-5 text-right">
+                  <a href="<?= $this->url('media', 'crud', ['id' => $row['id']]) ?>"
+                     class="confirm btn btn-xs btn-danger ajax" data-ajax-method="delete">
+                    <i class="fa fa-trash-o"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="panel-body" style="background: url(<?= $this->baseUrl($row['thumb']) ?>) 50% 50% no-repeat;">
+              <!-- use image as background -->
+              <a href="<?= $this->baseUrl($row['file']) ?>"></a>
+            </div>
+            <div class="panel-footer">
+              <?=__('<strong>%d</strong> kb', ceil($row['size']/1024))?>
+            </div>
+          </div>
+        </div>
+      <?php endforeach; ?>
+      <div id="media-template" class="hidden">
+        <div class="image-preview pull-left">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <div class="row">
+                <div class="col-lg-8 text-overflow" data-dz-name></div>
+                <div class="col-lg-4 text-right">
+                  <a href="<?= $this->url('media', 'crud') ?>" class="confirm btn btn-xs btn-danger ajax"
+                     data-ajax-method="delete">
+                    <i class="fa fa-trash-o"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="panel-body text-center">
+              <img data-dz-thumbnail />
+            </div>
+            <div class="panel-footer" data-dz-size></div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-<!-- Styles -->
-<style>
-    .file-row {
-        width: 250px;
-        margin-left: 20px;
-    }
-    .file-row .panel-body {
-        overflow: hidden;
-        height: 160px;
-        cursor: pointer;
-    }
-    .drop-area {
-        margin-top: 20px;
-        padding-top: 20px;
-        max-height: 480px;
-        overflow-y: scroll;
-        border: 3px dashed rgba(0, 0, 0, 0.1);
-    }
-</style>
+  </div>
+</div>
