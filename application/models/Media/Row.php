@@ -91,6 +91,7 @@ class Row extends \Bluz\Db\Row
      * @param UploadedFile $file
      *
      * @return void
+     * @throws \Bluz\Config\ConfigException
      */
     public function processRequestFile($file)
     {
@@ -98,7 +99,7 @@ class Row extends \Bluz\Db\Row
         $fileManager = new Manager($this, $file);
 
         // move request file
-        $fileManager->moveToDir($this->userId .'/'. $this->module);
+        $fileManager->moveToDir($this->userId.'/'.$this->module);
 
         // fill row data
         $this->title = $this->title ?: pathinfo($file->getClientFilename(), PATHINFO_FILENAME);

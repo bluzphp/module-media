@@ -13,7 +13,6 @@ namespace Application;
 use Application\Media;
 use Bluz\Controller\Controller;
 use Bluz\Controller\Mapper\Crud;
-use Bluz\Proxy\Config;
 use Bluz\Proxy\Layout;
 use Bluz\Proxy\Request;
 use Bluz\Proxy\Response;

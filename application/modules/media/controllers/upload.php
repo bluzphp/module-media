@@ -11,7 +11,6 @@
  */
 namespace Application;
 
-use Application\Media\Manager;
 use Bluz\Application\Exception\BadRequestException;
 use Bluz\Config\ConfigException;
 use Bluz\Controller\Controller;

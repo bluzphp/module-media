@@ -87,7 +87,7 @@ class Manager
             throw new ConfigException('Upload path is not configured');
         }
 
-        $fullPath = PATH_PUBLIC .'/'. $uploadPath .'/'. $directory;
+        $fullPath = PATH_PUBLIC.'/'.$uploadPath.'/'.$directory;
 
         if (!is_dir($fullPath) && !@mkdir($fullPath, 0755, true)) {
             throw new ConfigException('Upload folder is not exists, please create it');
@@ -99,8 +99,8 @@ class Manager
 
         $fileName = $this->getFileName($fullPath);
 
-        $this->publicPath = $uploadPath .'/'. $directory .'/'. $fileName;
-        $this->uploadPath = $fullPath .'/'. $fileName;
+        $this->publicPath = $uploadPath.'/'.$directory.'/'.$fileName;
+        $this->uploadPath = $fullPath.'/'.$fileName;
 
         $this->file->moveTo($this->uploadPath);
     }
