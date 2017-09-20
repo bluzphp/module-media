@@ -11,13 +11,16 @@
  */
 namespace Application;
 
+use Application\Media\Table;
 use Bluz\Controller\Controller;
 
 /**
- * @return void
+ * @return array
  */
 return function () {
     /**
      * @var Controller $this
      */
+
+    return ['images' => Table::getInstance()->getImages()];
 };

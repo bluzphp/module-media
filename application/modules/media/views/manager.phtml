@@ -5,9 +5,13 @@
 echo $this->style('css/media.css');
 ?>
 <script>
-  require(['bluz.media'], function(media) {
+  require(['bluz.media', 'jquery'], (media, $) => {
+    window.media = media;
     media.load();
   });
+  if (window.media !== undefined) {
+    window.media.load();
+  }
 </script>
 
 <div class="modal-content">
@@ -28,8 +32,34 @@ echo $this->style('css/media.css');
         </div></div>
     </div>
     <div id="media-previews" class="media-grid drop-area clearfix">
+      <?php foreach ($images as $row) : ?>
+        <div class="image-preview pull-left" data-id="<?=$row['id']?>" data-thumb="<?=$row['thumb']?>" data-file="<?=$row['file']?>">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <div class="row">
+                <div class="col-lg-7 text-overflow">
+                    <?= esc($row['title']) ?>
+                </div>
+                <div class="col-lg-5 text-right">
+                  <a href="<?= $this->url('media', 'crud', ['id' => $row['id']]) ?>"
+                     class="confirm btn btn-xs btn-danger ajax" data-ajax-method="delete">
+                    <i class="fa fa-trash-o"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="panel-body" style="background: url(<?= $this->baseUrl($row['thumb']) ?>) 50% 50% no-repeat;">
+              <!-- use image as background -->
+              <a href="<?= $this->baseUrl($row['file']) ?>"></a>
+            </div>
+            <div class="panel-footer">
+              <?=__('<strong>%d</strong> kb', ceil($row['size']/1024))?>
+            </div>
+          </div>
+        </div>
+      <?php endforeach; ?>
       <div id="media-template" class="hidden">
-        <div class="pull-left">
+        <div class="image-preview pull-left">
           <div class="panel panel-default">
             <div class="panel-heading">
               <div class="row">
