@@ -13,6 +13,7 @@ namespace Application;
 
 use Application\Media\Table;
 use Bluz\Controller\Controller;
+use Bluz\Proxy\Session;
 
 /**
  * @return array
@@ -21,6 +22,7 @@ return function () {
     /**
      * @var Controller $this
      */
+    Session::set('rollback', ['media', 'manager']);
 
     return ['images' => Table::getInstance()->getImages()];
 };

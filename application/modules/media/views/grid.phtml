@@ -13,85 +13,61 @@ if (!$grid) {
 </script>
 <div class="clearfix" data-spy="grid" data-grid="<?= $grid->getUid() ?>">
 
-  <nav class="navbar navbar-default">
-    <div class="col-lg-6">
-      <a href="<?= $this->url('media', 'crud') ?>" class="btn btn-primary navbar-btn"><?= __('Create') ?></a>
-    </div>
-    <div class="col-lg-6">
-      <form action="<?= $this->url('media', 'grid') ?>" class="navbar-form filter-form pull-right">
-        <div class="input-group">
-            <?php echo
-            $this->partial(
-                'grid/filter-search.phtml',
-                [
-                    'grid' => $grid,
-                    'filters' => [
-                        'title' => __('Title'),
-                        'file' => __('File'),
-                    ]
-                ]
-            )
-            ?>
-          <span class="input-group-btn">
-                        <button class="btn btn-default"><?= __("Search") ?></button>
-                    </span>
-        </div>
-      </form>
-    </div>
+  <nav class="navbar navbar-light bg-light justify-content-between">
+    <a href="<?= $this->url('media', 'crud') ?>" class="btn btn-primary navbar-btn"><?= __('Create') ?></a>
+    <form action="<?= $this->url('media', 'grid') ?>" class="form-inline filter-form">
+      <div class="input-group">
+          <?php echo
+          $this->partial(
+              'grid/filter-search.phtml',
+              [
+                  'grid' => $grid,
+                  'filters' => [
+                      'title' => __('Title'),
+                      'file' => __('File'),
+                  ]
+              ]
+          )
+          ?>
+        <span class="input-group-btn">
+          <button class="btn btn-secondary"><?= __("Search") ?></button>
+        </span>
+      </div>
+    </form>
   </nav>
+  <hr/>
 
-  <div class="row">
-    <div class="col-lg-4">
-        <?= $this->partial('grid/total.phtml', ['grid' => $grid]) ?>
-    </div>
-    <div class="col-lg-8">
-        <?= $this->partial('grid/limit.phtml', ['grid' => $grid]) ?>
-    </div>
-  </div>
-
-  <div class="media-grid clearfix">
-      <?php foreach ($grid->getData() as $row) : ?>
-        <div class="pull-left">
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <div class="row">
-                <div class="col-lg-7 text-overflow">
-                    <?= esc($row['title']) ?>
-                </div>
-                <div class="col-lg-5 text-right">
-                  <a href="<?= $this->url('media', 'crud', ['id' => $row['id']]) ?>" class="btn btn-xs btn-primary ">
-                    <i class="fa fa-pencil"></i>
-                  </a>
-                  <a href="<?= $this->url('media', 'crud', ['id' => $row['id']]) ?>"
-                     class="confirm btn btn-xs btn-danger ajax" data-ajax-method="delete">
-                    <i class="fa fa-trash-o"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div class="panel-body" style="background: url(<?= $this->baseUrl($row['thumb']) ?>) 50% 50% no-repeat;">
-              <!-- use image as background -->
-              <a href="<?= $this->baseUrl($row['file']) ?>" class="bluz-preview"></a>
-            </div>
-            <div class="panel-footer">
-
-              <a href="<?= $this->url('users', 'profile', ['id' => $row['userId']]) ?>">
-                  <?= $row['login'] ?>
-              </a>
-              <div class="pull-right"><?= substr($row['created'], 0, -9) ?></div>
-            </div>
-          </div>
+  <?= $this->partial('grid/total.phtml', ['grid' => $grid]) ?>
+  <?= $this->partial('grid/limit.phtml', ['grid' => $grid]) ?>
+  <hr style="display: block; clear: both"/>
+  <div class="card-deck">
+    <?php foreach ($grid->getData() as $row) : ?>
+    <div class="card mb-3" style="min-width: 240px; max-width: 240px">
+      <a href="<?= $this->baseUrl($row['file']) ?>" class="bluz-preview">
+        <img class="card-img-top" src="<?= $this->baseUrl($row['thumb']) ?>" alt="<?= esc($row['title']) ?>">
+      </a>
+      <div class="card-body">
+        <div class="d-flex justify-content-end">
+          <h4 class="card-title mr-auto p-2"><?= esc($row['title']) ?></h4>
+          <a href="<?= $this->url('media', 'crud', ['id' => $row['id']]) ?>"
+             class="btn btn-xs btn-primary dialog align-self-start mr-2"
+             data-ajax-method="get" data-modal-style="modal-lg">
+            <i class="fa fa-pencil"></i>
+          </a>
+          <a href="<?= $this->url('media', 'crud', ['id' => $row['id']]) ?>"
+             class="confirm btn btn-xs btn-danger ajax align-self-start" data-ajax-method="delete">
+            <i class="fa fa-trash-o"></i>
+          </a>
         </div>
-      <?php endforeach; ?>
-  </div>
-
-  <div class="row">
-    <div class="col-lg-4">
-        <?= $this->partial('grid/total.phtml', ['grid' => $grid]) ?>
+        <p class="card-text">
+          <small class="text-muted">
+            Uploaded by <a href="<?= $this->url('users', 'profile', ['id' => $row['userId']]) ?>"><?= $row['login'] ?></a>
+            at <?= substr($row['created'], 0, -9) ?></small></p>
+      </div>
     </div>
-    <div class="col-lg-8">
-        <?= $this->partial('grid/pagination.phtml', ['grid' => $grid]) ?>
-    </div>
+    <?php endforeach; ?>
   </div>
-
+  <hr style="display: block; clear: both"/>
+  <?= $this->partial('grid/total.phtml', ['grid' => $grid]) ?>
+  <?= $this->partial('grid/pagination.phtml', ['grid' => $grid]) ?>
 </div>
