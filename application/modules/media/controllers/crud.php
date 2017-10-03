@@ -14,7 +14,6 @@ use Application\Media;
 use Bluz\Controller\Controller;
 use Bluz\Controller\Mapper\Crud;
 use Bluz\Proxy\Layout;
-use Bluz\Proxy\Logger;
 use Bluz\Proxy\Request;
 use Bluz\Proxy\Response;
 use Bluz\Proxy\Session;
