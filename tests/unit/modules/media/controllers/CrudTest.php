@@ -77,10 +77,8 @@ class CrudTest extends ControllerTestCase
 
         Request::setInstance($request);
 
-        $this->getApp()->process();
-
-        self::assertQueryCount('input[name="title"]', 1);
-        self::assertOk();
+        self::getApp()->process();
+        self::assertRedirect('media', 'grid');
     }
 
     /**
