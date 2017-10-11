@@ -18,33 +18,33 @@
       <div class="media">
         <div class="media-body">
           <div class="form-group row">
-            <label class="control-label col-lg-2" for="name"><?=__('Title')?></label>
+            <label class="col-form-label col-lg-2" for="name"><?=__('Title')?></label>
             <div class="col-lg-10">
               <input type="text" class="form-control" id="name" name="title" value="<?=($row->title)?>" required />
             </div>
           </div>
             <?php if ($method === 'POST') : ?>
               <div class="form-group row">
-                <label class="control-label col-lg-2"><?=__('File')?></label>
+                <label class="col-form-label col-lg-2"><?=__('File')?></label>
                 <div class="col-lg-10">
                   <input type="file" name="file" accept="image/*" required />
                 </div>
               </div>
             <?php else: ?>
               <div class="form-group row">
-                <label class="control-label col-lg-2"><?=__('File')?></label>
+                <label class="col-form-label col-lg-2"><?=__('File')?></label>
                 <div class="col-lg-10">
                   <input type="text" class="form-control" readonly name="file" value="<?=($row->file)?>" />
                 </div>
               </div>
               <div class="form-group row">
-                <label class="control-label col-lg-2"><?=__('Type')?></label>
+                <label class="col-form-label col-lg-2"><?=__('Type')?></label>
                 <div class="col-lg-10">
                   <input type="text" class="form-control" readonly name="type" value="<?=($row->type)?>" />
                 </div>
               </div>
               <div class="form-group row">
-                <label class="control-label col-lg-2"><?=__('Link')?></label>
+                <label class="col-form-label col-lg-2"><?=__('Link')?></label>
                 <div class="col-lg-10">
                   <p class="form-control-static">
                     <a href="<?=$this->baseUrl($row->file)?>">
