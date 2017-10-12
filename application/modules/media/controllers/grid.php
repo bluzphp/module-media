@@ -14,6 +14,7 @@ use Bluz\Controller\Controller;
 use Bluz\Proxy\Layout;
 use Bluz\Proxy\Request;
 use Bluz\Proxy\Response;
+use Bluz\Proxy\Session;
 
 /**
  * @privilege Management
@@ -24,6 +25,7 @@ return function () {
     /**
      * @var Controller $this
      */
+    Session::set('rollback', ['media', 'grid']);
     Layout::setTemplate('dashboard.phtml');
     Layout::breadCrumbs(
         [

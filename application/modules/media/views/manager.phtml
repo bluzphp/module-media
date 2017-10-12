@@ -16,10 +16,12 @@ echo $this->style('css/media.css');
 
 <div class="modal-content">
   <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal">&times;</button>
     <h4 class="modal-title"><?= __('Images') ?></h4>
+    <button type="button" class="close" data-dismiss="modal" aria-label="<?=__('Close')?>">
+      <span aria-hidden="true">&times;</span>
+    </button>
   </div>
-  <div id="media-upload" class="modal-body clearfix">
+  <div id="media-upload" class="modal-body">
     <div class="row">
       <div class="col-lg-2">
         <div class="btn btn-success fileinput-button dz-clickable">
@@ -27,59 +29,53 @@ echo $this->style('css/media.css');
           <span><?= __('Add files...') ?></span>
         </div></div>
       <div class="col-lg-8">
-        <div id="media-progress" class="progress hide">
+        <div id="media-progress" class="progress" hidden>
           <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-        </div></div>
-    </div>
-    <div id="media-previews" class="media-grid drop-area clearfix">
-      <?php foreach ($images as $row) : ?>
-        <div class="image-preview pull-left" data-id="<?=$row['id']?>" data-thumb="<?=$row['thumb']?>" data-file="<?=$row['file']?>">
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <div class="row">
-                <div class="col-lg-7 text-overflow">
-                    <?= esc($row['title']) ?>
-                </div>
-                <div class="col-lg-5 text-right">
-                  <a href="<?= $this->url('media', 'crud', ['id' => $row['id']]) ?>"
-                     class="confirm btn btn-xs btn-danger ajax" data-ajax-method="delete">
-                    <i class="fa fa-trash-o"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div class="panel-body" style="background: url(<?= $this->baseUrl($row['thumb']) ?>) 50% 50% no-repeat;">
-              <!-- use image as background -->
-              <a href="<?= $this->baseUrl($row['file']) ?>"></a>
-            </div>
-            <div class="panel-footer">
-              <?=__('<strong>%d</strong> kb', ceil($row['size']/1024))?>
-            </div>
-          </div>
-        </div>
-      <?php endforeach; ?>
-      <div id="media-template" class="hidden">
-        <div class="image-preview pull-left">
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <div class="row">
-                <div class="col-lg-8 text-overflow" data-dz-name></div>
-                <div class="col-lg-4 text-right">
-                  <a href="<?= $this->url('media', 'crud') ?>" class="confirm btn btn-xs btn-danger ajax"
-                     data-ajax-method="delete">
-                    <i class="fa fa-trash-o"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div class="panel-body text-center">
-              <img data-dz-thumbnail />
-            </div>
-            <div class="panel-footer" data-dz-size></div>
-          </div>
         </div>
       </div>
     </div>
-
+    <div id="media-previews" class="card-deck drop-area">
+      <?php foreach ($images as $row) : ?>
+        <div class="card mb-4" style="min-width: 240px; max-width: 240px"
+             data-id="<?=$row['id']?>" data-thumb="<?=$row['thumb']?>" data-file="<?=$row['file']?>">
+          <img class="card-img-top" src="<?= $this->baseUrl($row['thumb']) ?>" alt="<?= esc($row['title']) ?>">
+          <div class="card-body">
+            <div class="d-flex justify-content-end">
+              <h4 class="card-title mr-auto p-2"><?= esc($row['title']) ?></h4>
+              <a href="<?= $this->url('media', 'crud', ['id' => $row['id']]) ?>"
+                 class="btn btn-xs btn-primary dialog align-self-start mr-2"
+                 data-ajax-method="get" data-modal-style="modal-lg">
+                <i class="fa fa-pencil"></i>
+              </a>
+              <a href="<?= $this->url('media', 'crud', ['id' => $row['id']]) ?>"
+                 class="confirm btn btn-xs btn-danger ajax align-self-start" data-ajax-method="delete">
+                <i class="fa fa-trash-o"></i>
+              </a>
+            </div>
+            <p class="card-text"><small class="text-muted"><?=__('<strong>%d</strong> kb', ceil($row['size']/1024))?></small></p>
+          </div>
+        </div>
+      <?php endforeach; ?>
+    </div>
+    <div id="media-template" hidden>
+      <div class="card mb-4" style="min-width: 240px; max-width: 240px">
+        <img class="card-img-top" src="" data-dz-thumbnail>
+        <div class="card-body">
+          <div class="d-flex justify-content-end">
+            <h4 class="card-title mr-auto p-2" data-dz-name></h4>
+            <a href="<?= $this->url('media', 'crud') ?>"
+               class="btn btn-xs btn-primary dialog align-self-start mr-2"
+               data-ajax-method="get" data-modal-style="modal-lg">
+              <i class="fa fa-pencil"></i>
+            </a>
+            <a href="<?= $this->url('media', 'crud') ?>"
+               class="confirm btn btn-xs btn-danger ajax align-self-start" data-ajax-method="delete">
+              <i class="fa fa-trash-o"></i>
+            </a>
+          </div>
+          <p class="card-text"><small class="text-muted" data-dz-size><?=__('<strong>%d</strong> kb', ceil($row['size']/1024))?></small></p>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

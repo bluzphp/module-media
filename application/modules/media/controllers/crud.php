@@ -33,8 +33,9 @@ return function () {
      * @var Controller $this
      */
     Session::start();
-
-    $this->useLayout('dashboard.phtml');
+    if (!Request::isXmlHttpRequest()) {
+        $this->useLayout('dashboard.phtml');
+    }
     Layout::breadCrumbs(
         [
             Layout::ahref('Dashboard', ['dashboard', 'index']),
@@ -55,11 +56,14 @@ return function () {
 
     $result = $crudController->run();
 
-    // FIXME: workaround
-    // check result for instance of Media\Row
-    if ((Request::isPost() || Request::isPut()) && !$result) {
-        // all ok, go to grid
-        Response::redirectTo('media', 'grid');
+    // back to grid after create or update media file
+    if (Request::isPost() || Request::isPut()) {
+        if ($rollback = Session::get('rollback')) {
+            Response::redirectTo(...$rollback);
+        } else {
+            // all ok, go to grid
+            Response::redirectTo('media', 'grid');
+        }
     }
 
     return $result;

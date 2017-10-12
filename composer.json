@@ -4,7 +4,7 @@
   "license": "MIT",
   "description": "bluz media module",
   "require": {
-    "bluzphp/composer-plugin": "~2.0",
+    "bluzphp/composer-plugin": "~2.1",
     "enyo/dropzone": "~5.1.1"
   },
   "extra": {

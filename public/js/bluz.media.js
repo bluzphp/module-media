@@ -27,15 +27,15 @@ define(['jquery', 'bluz', 'bluz.notify', 'dropzone'], function ($, bluz, notify,
     media.template = $('#media-template').html();
 
     // hookup for preview click
-    media.$previews.on('click', '.image-preview .panel-body', function () {
-      let image = $(this).parents('.image-preview').data();
+    media.$previews.on('click', '.card img', function () {
+      let image = $(this).parents('.card').data();
       // fire event
-      media.$upload.trigger('push.data.bluz', image);
+      media.$upload.trigger('push.bluz.data', image);
       return false;
     });
 
     // hookup for delete click
-    media.$previews.on('success.ajax.bluz', 'a.confirm.ajax[data-ajax-method=delete]', function () {
+    media.$previews.on('success.bluz.ajax', 'a.confirm.ajax[data-ajax-method=delete]', function () {
       $(this).parents('div.image-preview').remove();
     });
   };
@@ -60,11 +60,11 @@ define(['jquery', 'bluz', 'bluz.notify', 'dropzone'], function ($, bluz, notify,
     .on('processing', () => {
       // use element similar to bluz.ajax
       bluz.showLoading();
-      media.$progress.removeClass('hide');
+      media.$progress.removeAttr('hidden');
     })
     .on('complete', () => {
       bluz.hideLoading();
-      media.$progress.addClass('hide');
+      media.$progress.attr('hidden', '1');
       media.$upload.stop(true, true);
     })
     .on('totaluploadprogress', function (progress) {
@@ -82,7 +82,7 @@ define(['jquery', 'bluz', 'bluz.notify', 'dropzone'], function ($, bluz, notify,
       // setup delete button
       $preview.find('a[data-ajax-method=delete]').data('id', response.id);
       // listen event
-      $preview.on('success.ajax.bluz', () => {
+      $preview.on('success.bluz.ajax', () => {
         media.dropzone.emit('removedfile', image);
       });
     });
