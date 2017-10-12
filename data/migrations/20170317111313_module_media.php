@@ -49,27 +49,5 @@ class ModuleMedia extends AbstractMigration
                 'update' => 'CASCADE'
             ])
             ->create();
-
-        $data = [
-            [
-                'roleId' => 2,
-                'module' => 'media',
-                'privilege' => 'Management'
-            ],
-            [
-                'roleId' => 2,
-                'module' => 'media',
-                'privilege' => 'Upload'
-            ],
-            [
-                'roleId' => 3,
-                'module' => 'media',
-                'privilege' => 'Upload'
-            ],
-        ];
-
-        $privileges = $this->table('acl_privileges');
-        $privileges->insert($data)
-            ->save();
     }
 }
