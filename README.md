@@ -19,6 +19,7 @@ To install the module run the command:
   
 ```bash
 php /vendor/bin/bluzman module:install media
+php /vendor/bin/bluzman db:migrate
 ```
 
 ### Remove module
