@@ -25,7 +25,6 @@ return function () {
     /**
      * @var Controller $this
      */
-    Session::set('rollback', ['media', 'grid']);
     Layout::setTemplate('dashboard.phtml');
     Layout::breadCrumbs(
         [

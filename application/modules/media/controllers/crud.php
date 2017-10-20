@@ -58,12 +58,7 @@ return function () {
 
     // back to grid after create or update media file
     if (Request::isPost() || Request::isPut()) {
-        if ($rollback = Session::get('rollback')) {
-            Response::redirectTo(...$rollback);
-        } else {
-            // all ok, go to grid
-            Response::redirectTo('media', 'grid');
-        }
+        Response::reload();
     }
 
     return $result;

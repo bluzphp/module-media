@@ -22,7 +22,5 @@ return function () {
     /**
      * @var Controller $this
      */
-    Session::set('rollback', ['media', 'manager']);
-
     return ['images' => Table::getInstance()->getImages()];
 };
