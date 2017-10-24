@@ -24,7 +24,7 @@ return function ($file) {
      */
     // used native session settings without rewrite save path
     // because PHP_SESSION_UPLOAD_PROGRESS mechanism is epic
-    if (session_id() == '') {
+    if (session_id() === '') {
         session_start();
     }
 
