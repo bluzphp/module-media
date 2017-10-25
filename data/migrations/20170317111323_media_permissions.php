@@ -9,7 +9,7 @@ use Phinx\Migration\AbstractMigration;
 /**
  * CreateMediaTable
  */
-class ModuleMediaPermissions extends AbstractMigration
+class MediaPermissions extends AbstractMigration
 {
     /**
      * Migrate Up.

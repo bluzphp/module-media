@@ -9,7 +9,7 @@ use Phinx\Migration\AbstractMigration;
 /**
  * CreateMediaTable
  */
-class ModuleMedia extends AbstractMigration
+class Media extends AbstractMigration
 {
     /**
      * Change Method.
