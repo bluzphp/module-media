@@ -35,7 +35,7 @@ define(['jquery', 'bluz', 'bluz.notify', 'dropzone'], function ($, bluz, notify,
     });
 
     // hookup for delete click
-    media.$previews.on('success.bluz.ajax', 'a.confirm.ajax[data-ajax-method=delete]', function () {
+    media.$previews.on('success.bluz.ajax', 'a[data-ajax-method=delete]', function () {
       $(this).parents('div.image-preview').remove();
     });
   };

@@ -50,12 +50,12 @@ if (!$grid) {
         <div class="d-flex justify-content-end">
           <h4 class="card-title mr-auto p-2"><?= esc($row['title']) ?></h4>
           <a href="<?= $this->url('media', 'crud', ['id' => $row['id']]) ?>"
-             class="btn btn-xs btn-primary dialog align-self-start mr-2"
-             data-ajax-method="get" data-modal-style="modal-lg">
+             class="btn btn-primary align-self-start mr-2"
+             data-ajax-dialog data-ajax-method="get" data-modal-style="modal-lg">
             <i class="fa fa-pencil"></i>
           </a>
           <a href="<?= $this->url('media', 'crud', ['id' => $row['id']]) ?>"
-             class="confirm btn btn-xs btn-danger ajax align-self-start" data-ajax-method="delete">
+             class="btn btn-danger align-self-start" data-confirm data-ajax data-ajax-method="delete">
             <i class="fa fa-trash-o"></i>
           </a>
         </div>
