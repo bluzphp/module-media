@@ -43,7 +43,7 @@ if (!$grid) {
   <div class="card-deck">
     <?php foreach ($grid->getData() as $row) : ?>
     <div class="card mb-3" style="min-width: 240px; max-width: 240px">
-      <a href="<?= $this->baseUrl($row['file']) ?>" class="bluz-preview">
+      <a href="<?= $this->baseUrl($row['file']) ?>" data-ajax-preview>
         <img class="card-img-top" src="<?= $this->baseUrl($row['thumb']) ?>" alt="<?= esc($row['title']) ?>">
       </a>
       <div class="card-body">
@@ -67,7 +67,7 @@ if (!$grid) {
     </div>
     <?php endforeach; ?>
   </div>
-  <hr style="display: block; clear: both"/>
+  <hr/>
   <?= $this->partial('grid/total.phtml', ['grid' => $grid]) ?>
   <?= $this->partial('grid/pagination.phtml', ['grid' => $grid]) ?>
 </div>
