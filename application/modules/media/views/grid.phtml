@@ -43,19 +43,19 @@ if (!$grid) {
   <div class="card-deck">
     <?php foreach ($grid->getData() as $row) : ?>
     <div class="card mb-3" style="min-width: 240px; max-width: 240px">
-      <a href="<?= $this->baseUrl($row['file']) ?>" class="bluz-preview">
+      <a href="<?= $this->baseUrl($row['file']) ?>" data-ajax-preview>
         <img class="card-img-top" src="<?= $this->baseUrl($row['thumb']) ?>" alt="<?= esc($row['title']) ?>">
       </a>
       <div class="card-body">
         <div class="d-flex justify-content-end">
           <h4 class="card-title mr-auto p-2"><?= esc($row['title']) ?></h4>
           <a href="<?= $this->url('media', 'crud', ['id' => $row['id']]) ?>"
-             class="btn btn-xs btn-primary dialog align-self-start mr-2"
-             data-ajax-method="get" data-modal-style="modal-lg">
+             class="btn btn-primary align-self-start mr-2"
+             data-ajax-dialog data-ajax-method="get" data-modal-style="modal-lg">
             <i class="fa fa-pencil"></i>
           </a>
           <a href="<?= $this->url('media', 'crud', ['id' => $row['id']]) ?>"
-             class="confirm btn btn-xs btn-danger ajax align-self-start" data-ajax-method="delete">
+             class="btn btn-danger align-self-start" data-confirm data-ajax data-ajax-method="delete">
             <i class="fa fa-trash-o"></i>
           </a>
         </div>
@@ -67,7 +67,7 @@ if (!$grid) {
     </div>
     <?php endforeach; ?>
   </div>
-  <hr style="display: block; clear: both"/>
+  <hr/>
   <?= $this->partial('grid/total.phtml', ['grid' => $grid]) ?>
   <?= $this->partial('grid/pagination.phtml', ['grid' => $grid]) ?>
 </div>
