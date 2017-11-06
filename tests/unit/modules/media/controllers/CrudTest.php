@@ -33,16 +33,6 @@ use Zend\Diactoros\UploadedFile;
 class CrudTest extends ControllerTestCase
 {
     /**
-     * Drop photo after the test
-     */
-    public static function tearDownAfterClass()
-    {
-        Db::delete('media')->where('userId', [1])->execute();
-        $path = Config::getModuleData('media', 'upload_path').'/1';
-        Tools\Cleaner::delete($path);
-    }
-
-    /**
      * setUp
      *
      * @return void
@@ -52,6 +42,16 @@ class CrudTest extends ControllerTestCase
         parent::setUp();
         self::getApp()->useLayout(false);
         Auth::setIdentity(new UserHasPermission(UserFixtureContainer::$fixture));
+    }
+
+    /**
+     * Drop photo after the test
+     */
+    public static function tearDownAfterClass()
+    {
+        Db::delete('media')->where('userId = ?', 1)->execute();
+        $path = Config::getModuleData('media', 'upload_path').'/1';
+        Tools\Cleaner::delete($path);
     }
 
     /**
