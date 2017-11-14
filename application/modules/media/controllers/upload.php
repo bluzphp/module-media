@@ -11,7 +11,7 @@
  */
 namespace Application;
 
-use Bluz\Application\Exception\BadRequestException;
+use Bluz\Http\Exception\BadRequestException;
 use Bluz\Config\ConfigException;
 use Bluz\Controller\Controller;
 use Bluz\Proxy\Request;

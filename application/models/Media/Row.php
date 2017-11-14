@@ -37,7 +37,7 @@ class Row extends \Bluz\Db\Row
     /**
      * {@inheritdoc}
      */
-    protected function beforeSave()
+    protected function beforeSave() : void
     {
         $this->addValidator('title')
             ->required()
@@ -49,7 +49,7 @@ class Row extends \Bluz\Db\Row
      *
      * @return void
      */
-    protected function beforeInsert()
+    protected function beforeInsert() : void
     {
         $this->created = gmdate('Y-m-d H:i:s');
 
@@ -59,7 +59,7 @@ class Row extends \Bluz\Db\Row
         }
         // set user ID
         if ($user = Auth::getIdentity()) {
-            $this->userId = $user->id;
+            $this->userId = $user->getId();
         } else {
             $this->userId = Users\Table::SYSTEM_USER;
         }
@@ -70,7 +70,7 @@ class Row extends \Bluz\Db\Row
      *
      * @return void
      */
-    protected function beforeUpdate()
+    protected function beforeUpdate() : void
     {
         $this->updated = gmdate('Y-m-d H:i:s');
     }
@@ -80,7 +80,7 @@ class Row extends \Bluz\Db\Row
      *
      * @return void
      */
-    protected function afterDelete()
+    protected function afterDelete() : void
     {
         $this->deleteFiles();
     }

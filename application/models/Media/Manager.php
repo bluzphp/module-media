@@ -9,8 +9,8 @@ declare(strict_types=1);
 namespace Application\Media;
 
 use Application\Users;
-use Bluz\Application\Exception\BadRequestException;
 use Bluz\Config\ConfigException;
+use Bluz\Http\Exception\BadRequestException;
 use Bluz\Proxy\Auth;
 use Bluz\Proxy\Config;
 use Image\Thumbnail;
@@ -62,7 +62,7 @@ class Manager
     {
         $this->media = $media;
         $this->media->module = $this->media->module ?: 'users';
-        $this->media->userId = $this->media->userId ?: Auth::getIdentity()->id ?: Users\Table::SYSTEM_USER;
+        $this->media->userId = $this->media->userId ?: Auth::getIdentity()->getId() ?: Users\Table::SYSTEM_USER;
 
         $this->file = $file;
         $this->name = $media->title ?? pathinfo($file->getClientFilename(), PATHINFO_FILENAME);

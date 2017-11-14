@@ -21,11 +21,9 @@ class Grid extends \Bluz\Grid\Grid
     protected $uid = 'options';
 
     /**
-     * init
-     *
-     * @return self
+     * {@inheritdoc}
      */
-    public function init()
+    public function init() : void
     {
         // Array
         $adapter = new SqlSource();
@@ -41,7 +39,5 @@ class Grid extends \Bluz\Grid\Grid
         $this->setDefaultLimit(25);
         $this->setAllowOrders(['id', 'login', 'title', 'type', 'created', 'deleted']);
         $this->setAllowFilters(['userId', 'title', 'file']);
-
-        return $this;
     }
 }

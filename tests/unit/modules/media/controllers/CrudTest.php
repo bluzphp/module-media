@@ -85,7 +85,6 @@ class CrudTest extends ControllerTestCase
         Request::setInstance($request);
 
         self::getApp()->process();
-        codecept_debug(Response::getHeader('Location'));
         self::assertReload();
     }
 
@@ -105,12 +104,6 @@ class CrudTest extends ControllerTestCase
      */
     public function testEditForm()
     {
-        $this->dispatch('/media/crud');
-
-        self::assertOk();
-        self::assertQueryCount('form[method="PUT"]', 1);
-//        self::assertQueryCount('input[name="id"][value="1"]', 1);
-
         // Remove the following lines when you implement this test.
         // Need to create element with ID
         self::markTestIncomplete(
