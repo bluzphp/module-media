@@ -42,7 +42,7 @@ if (!$grid) {
   <hr style="display: block; clear: both"/>
   <div class="card-deck">
     <?php foreach ($grid->getData() as $row) : ?>
-    <div class="card mb-3" style="min-width: 240px; max-width: 240px">
+    <div class="card mb-3">
       <a href="<?= $this->baseUrl($row['file']) ?>" data-ajax-preview>
         <img class="card-img-top" src="<?= $this->baseUrl($row['thumb']) ?>" alt="<?= esc($row['title']) ?>">
       </a>

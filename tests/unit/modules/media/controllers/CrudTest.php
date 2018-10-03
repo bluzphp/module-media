@@ -54,7 +54,7 @@ class CrudTest extends ControllerTestCase
         self::getApp();
         {
             Db::delete('media')->where('userId = ?', 1)->execute();
-            $path = Config::getModuleData('media', 'upload_path').'/1';
+            $path = Config::get('module.media', 'upload_path').'/1';
             Tools\Cleaner::delete($path);
         }
         self::resetApp();
@@ -67,7 +67,7 @@ class CrudTest extends ControllerTestCase
     public function testUploadFile()
     {
         // get path from config
-        $path = Config::getData('temp', 'path');
+        $path = Config::get('temp', 'path');
         if (empty($path)) {
             throw new Exception('Temporary path is not configured');
         }

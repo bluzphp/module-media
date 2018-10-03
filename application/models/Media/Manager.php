@@ -81,7 +81,7 @@ class Manager
      */
     public function moveToDir($directory)
     {
-        $uploadPath = Config::getModuleData('media', 'upload_path');
+        $uploadPath = Config::get('module.media', 'upload_path');
 
         if (empty($uploadPath)) {
             throw new ConfigException('Upload path is not configured');
