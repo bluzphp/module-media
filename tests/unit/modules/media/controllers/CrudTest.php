@@ -20,6 +20,7 @@ use Bluz\Proxy\Auth;
 use Bluz\Proxy\Config;
 use Bluz\Proxy\Db;
 use Bluz\Proxy\Request;
+use Bluz\Proxy\Response;
 use Zend\Diactoros\UploadedFile;
 
 /**
@@ -49,9 +50,15 @@ class CrudTest extends ControllerTestCase
      */
     public static function tearDownAfterClass()
     {
-        Db::delete('media')->where('userId = ?', 1)->execute();
-        $path = Config::getModuleData('media', 'upload_path').'/1';
-        Tools\Cleaner::delete($path);
+        // need to connect to DB
+        self::getApp();
+        {
+            Db::delete('media')->where('userId = ?', 1)->execute();
+            $path = Config::get('module.media', 'upload_path').'/1';
+            Tools\Cleaner::delete($path);
+        }
+        self::resetApp();
+        self::resetGlobals();
     }
 
     /**
@@ -60,7 +67,7 @@ class CrudTest extends ControllerTestCase
     public function testUploadFile()
     {
         // get path from config
-        $path = Config::getData('temp', 'path');
+        $path = Config::get('temp', 'path');
         if (empty($path)) {
             throw new Exception('Temporary path is not configured');
         }
@@ -97,14 +104,6 @@ class CrudTest extends ControllerTestCase
      */
     public function testEditForm()
     {
-        /*
-        $this->dispatchRouter('/media/crud/', ['id' => 1]);
-        self::assertOk();
-
-        self::assertQueryCount('form[method="PUT"]', 1);
-
-        self::assertQueryCount('input[name="id"][value="1"]', 1);
-        */
         // Remove the following lines when you implement this test.
         // Need to create element with ID
         self::markTestIncomplete(

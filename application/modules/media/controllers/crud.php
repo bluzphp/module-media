@@ -57,7 +57,7 @@ return function () {
     $result = $crudController->run();
 
     // back to grid after create or update media file
-    if (Request::isPost() || Request::isPut()) {
+    if ((Request::isPost() || Request::isPut()) && !Request::isXmlHttpRequest()) {
         Response::reload();
     }
 

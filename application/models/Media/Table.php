@@ -32,7 +32,7 @@ class Table extends \Bluz\Db\Table
      * Primary key(s)
      * @var array
      */
-    protected $primary = array('id');
+    protected $primary = ['id'];
 
     /**
      * Get images of current user
@@ -42,12 +42,12 @@ class Table extends \Bluz\Db\Table
      */
     public function getImages()
     {
-        /** @var Row $user */
+        /* @var \Application\Users\Row $user */
         if (!$user = Auth::getIdentity()) {
             throw new Exception('User not found');
         }
 
-        return $this->getImagesByUserId($user->id);
+        return $this->getImagesByUserId($user->getId());
     }
 
     /**

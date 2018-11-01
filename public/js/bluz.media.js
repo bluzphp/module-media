@@ -8,7 +8,7 @@
  *  - push.data.bluz
  */
 /* global define,require*/
-define(['jquery', 'bluz', 'bluz.notify', 'dropzone'], function ($, bluz, notify, Dropzone) {
+define(['jquery', 'bluz', 'bluz.ajax', 'bluz.notify', 'dropzone'], function ($, bluz, ajax, notify, Dropzone) {
   'use strict';
 
   // Media object
@@ -36,7 +36,7 @@ define(['jquery', 'bluz', 'bluz.notify', 'dropzone'], function ($, bluz, notify,
 
     // hookup for delete click
     media.$previews.on('success.bluz.ajax', 'a[data-ajax-method=delete]', function () {
-      $(this).parents('div.image-preview').remove();
+      $(this).parents('div.card').remove();
     });
   };
 
@@ -59,11 +59,11 @@ define(['jquery', 'bluz', 'bluz.notify', 'dropzone'], function ($, bluz, notify,
     })
     .on('processing', () => {
       // use element similar to bluz.ajax
-      bluz.showLoading();
+      ajax.showLoading();
       media.$progress.removeAttr('hidden');
     })
     .on('complete', () => {
-      bluz.hideLoading();
+      ajax.hideLoading();
       media.$progress.attr('hidden', '1');
       media.$upload.stop(true, true);
     })

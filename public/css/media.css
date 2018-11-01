@@ -24,3 +24,14 @@
   overflow-y: scroll;
   border: 2px dashed rgba(0, 0, 0, 0.1);
 }
+
+.card-deck .card {
+  min-width: 240px;
+  max-width: 240px
+}
+
+.card-deck .card-img-top {
+  /*display: block;
+  min-width: 196px;
+  max-width: 196px*/
+}
