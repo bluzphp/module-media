@@ -67,7 +67,7 @@ class CrudTest extends ControllerTestCase
     public function testUploadFile()
     {
         // get path from config
-        $path = Config::get('temp', 'path');
+        $path = Config::get('module.media', 'path');
         if (empty($path)) {
             throw new Exception('Temporary path is not configured');
         }
