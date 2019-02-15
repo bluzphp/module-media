@@ -109,6 +109,8 @@ class Manager
      * Create thumbnail
      *
      * @return string
+     * @throws \Image\Exception
+     * @throws \ImagickException
      */
     public function createThumbnail()
     {
