@@ -36,7 +36,7 @@ return function () {
     // save media data
     $media = new Media\Row();
     $media->module = 'media';
-    $media->userId = $this->user()->id;
+    $media->userId = $this->user()->getId();
 
     $media->processRequestFile(Request::getFile('file'));
 
