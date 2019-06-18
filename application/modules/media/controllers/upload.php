@@ -11,6 +11,9 @@
  */
 namespace Application;
 
+use Application\Media\Row;
+use Application\Media\Service;
+use Application\Media\Table;
 use Bluz\Http\Exception\BadRequestException;
 use Bluz\Config\ConfigException;
 use Bluz\Controller\Controller;
@@ -33,29 +36,49 @@ return function () {
     // switch to JSON response
     $this->useJson();
 
-    // save media data
-    $media = new Media\Row();
-    $media->module = 'media';
-    $media->userId = $this->user()->getId();
+    $files = Request::getFile('files');
 
-    $media->processRequestFile(Request::getFile('file'));
+    if (!is_array($files)) {
+        $files = [$files];
+    }
 
-    try {
-        $media->save();
-    } catch (ValidatorException $e) {
-        // remove invalid files
-        $media->deleteFiles();
+    $rows = [];
 
-        // create error message
-        $errors = array_values($e->getErrors());
-        throw new BadRequestException(implode("\n", $errors));
+    foreach ($files as $file) {
+        try {
+            /** @var Row $row */
+            $row = Table::create();
+            $row = Service::upload($row, $file, 'media', $this->user()->getId());
+            $row->save();
+            $rows[] = $row;
+        } catch (ValidatorException $e) {
+            // create error message
+            $errors = array_values($e->getErrors());
+            throw new BadRequestException(implode("\n", $errors));
+        }
     }
 
     // displaying file info
     // `id` for media manager
-    // `filelink` for editor.js
-    return [
-        'id' => $media->id,
-        'filelink' => $media->file
-    ];
+    // `url` for redactor.js
+    $response = [];
+
+    if (count($rows) === 1) {
+        $row = current($rows);
+        $response = [
+            'file' => [
+                'id' => $row->id,
+                'url' => $row->file,
+            ]
+        ];
+    } else {
+        foreach ($rows as $i => $row) {
+            $response['file-'.$i] = [
+                'id' => $row->id,
+                'url' => $row->file,
+            ];
+        }
+    }
+
+    return $response;
 };

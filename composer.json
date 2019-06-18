@@ -6,7 +6,7 @@
   "require": {
     "bluzphp/framework": "~7.11",
     "bluzphp/composer-plugin": "~2.1",
-    "enyo/dropzone": "~5.1.1"
+    "enyo/dropzone": "~5.5"
   },
   "extra": {
     "copy-files": {

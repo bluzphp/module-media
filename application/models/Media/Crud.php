@@ -22,8 +22,12 @@ class Crud extends \Bluz\Crud\Table
      * createOne
      *
      * @param array $data
-     * @throws \Application\Exception
+     *
      * @return integer
+     * @throws \Bluz\Db\Exception\DbException
+     * @throws \Bluz\Db\Exception\InvalidPrimaryKeyException
+     * @throws \Bluz\Db\Exception\TableNotFoundException
+     * @throws \Bluz\Http\Exception\BadRequestException
      */
     public function createOne($data)
     {
@@ -39,7 +43,7 @@ class Crud extends \Bluz\Crud\Table
         /**
          * Process HTTP File
          */
-        $row->processRequestFile(Request::getFile('file'));
+        $row = Service::upload($row, Request::getFile('file'));
 
         return $row->save();
     }
