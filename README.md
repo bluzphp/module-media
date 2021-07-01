@@ -1,19 +1,17 @@
-# Module media for Bluz Skeleton
+# Module Media for Bluz Skeleton
+## Achievements
 
-[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/bluzphp/main)
+[![Latest Stable Version](https://img.shields.io/packagist/v/bluzphp/module-media.svg?label=version&style=flat)](https://packagist.org/packages/bluzphp/module-media)
 
-### Achievements
+[![Build Status](https://img.shields.io/travis/bluzphp/module-media/master.svg?style=flat)](https://travis-ci.org/bluzphp/module-media)
 
-[![Build Status](https://travis-ci.org/bluzphp/module-media.svg?branch=master)](https://travis-ci.org/bluzphp/module-media)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/bluzphp/module-media/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/bluzphp/module-media/?branch=master)
+[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/bluzphp/module-media.svg?style=flat)](https://scrutinizer-ci.com/g/bluzphp/module-media/)
 
-[![Latest Stable Version](https://poser.pugx.org/bluzphp/module-media/v/stable)](https://packagist.org/packages/bluzphp/module-media)
-[![Total Downloads](https://poser.pugx.org/bluzphp/module-media/downloads)](https://packagist.org/packages/bluzphp/module-media)
+[![Total Downloads](https://img.shields.io/packagist/dt/bluzphp/module-media.svg?style=flat)](https://packagist.org/packages/bluzphp/module-media)
 
-[![License](https://poser.pugx.org/bluzphp/module-test/license)](https://packagist.org/packages/bluzphp/module-media)
+[![License](https://img.shields.io/packagist/l/bluzphp/module-media.svg?style=flat)](https://packagist.org/packages/bluzphp/module-media)
 
-Usage
--------------------------
+## Usage
 ### Install module
 To install the module run the command:
   

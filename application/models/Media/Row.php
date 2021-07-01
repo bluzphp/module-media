@@ -82,47 +82,6 @@ class Row extends \Bluz\Db\Row
      */
     protected function afterDelete() : void
     {
-        $this->deleteFiles();
-    }
-
-    /**
-     * processRequestFile
-     *
-     * @param UploadedFile $file
-     *
-     * @return void
-     * @throws \Bluz\Config\ConfigException
-     */
-    public function processRequestFile($file)
-    {
-        // process request image
-        $fileManager = new Manager($this, $file);
-
-        // move request file
-        $fileManager->moveToDir($this->userId.'/'.$this->module);
-
-        // fill row data
-        $this->title = $this->title ?: pathinfo($file->getClientFilename(), PATHINFO_FILENAME);
-        $this->file = $fileManager->getPublicPath();
-        $this->type = $file->getClientMediaType();
-        $this->size = $file->getSize();
-
-        // create thumbnail
-        $this->thumb = $fileManager->createThumbnail();
-    }
-
-    /**
-     * Delete Files
-     *
-     * @return void
-     */
-    public function deleteFiles()
-    {
-        if ($this->file && is_file(PATH_PUBLIC.'/'.$this->file)) {
-            @unlink(PATH_PUBLIC.'/'.$this->file);
-        }
-        if ($this->thumb && is_file(PATH_PUBLIC.'/'.$this->thumb)) {
-            @unlink(PATH_PUBLIC.'/'.$this->thumb);
-        }
+        Service::delete($this);
     }
 }

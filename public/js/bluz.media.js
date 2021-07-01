@@ -43,6 +43,7 @@ define(['jquery', 'bluz', 'bluz.ajax', 'bluz.notify', 'dropzone'], function ($, 
   // Init Dropzone plugin
   media.dropzone = new Dropzone(media.$upload.get(0), {
     url: '/media/upload', // Set the url
+    paramName: 'files',
     thumbnailWidth: 160,
     thumbnailHeight: 160,
     parallelUploads: 8,
@@ -80,7 +81,7 @@ define(['jquery', 'bluz', 'bluz.ajax', 'bluz.notify', 'dropzone'], function ($, 
     .on('success', function (image, response) {
       let $preview = $(image.previewElement);
       // setup delete button
-      $preview.find('a[data-ajax-method=delete]').data('id', response.id);
+      $preview.find('a').data('id', response.file.id);
       // listen event
       $preview.on('success.bluz.ajax', () => {
         media.dropzone.emit('removedfile', image);

@@ -30,7 +30,7 @@ if (!$grid) {
           )
           ?>
         <span class="input-group-btn">
-          <button class="btn btn-secondary"><?= __("Search") ?></button>
+          <button class="btn btn-secondary"><?= __('Search') ?></button>
         </span>
       </div>
     </form>
@@ -52,11 +52,11 @@ if (!$grid) {
           <a href="<?= $this->url('media', 'crud', ['id' => $row['id']]) ?>"
              class="btn btn-primary align-self-start mr-2"
              data-ajax-dialog data-ajax-method="get" data-modal-style="modal-lg">
-            <i class="fa fa-pencil"></i>
+            <i class="fas fa-pencil-alt"></i>
           </a>
           <a href="<?= $this->url('media', 'crud', ['id' => $row['id']]) ?>"
              class="btn btn-danger align-self-start" data-confirm data-ajax data-ajax-method="delete">
-            <i class="fa fa-trash-o"></i>
+            <i class="fa fa-trash"></i>
           </a>
         </div>
         <p class="card-text">

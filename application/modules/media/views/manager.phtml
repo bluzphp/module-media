@@ -45,11 +45,11 @@ echo $this->style('css/media.css');
               <a href="<?= $this->url('media', 'crud', ['id' => $row['id']]) ?>"
                  class="btn btn-primary align-self-start mr-2"
                  data-ajax-dialog data-ajax-method="get" data-modal-style="modal-lg">
-                <i class="fa fa-pencil"></i>
+                <i class="fas fa-pencil-alt"></i>
               </a>
               <a href="<?= $this->url('media', 'crud', ['id' => $row['id']]) ?>"
                  class="btn btn-danger align-self-start" data-confirm data-ajax data-ajax-method="delete">
-                <i class="fa fa-trash-o"></i>
+                <i class="fa fa-trash"></i>
               </a>
             </div>
             <p class="card-text"><small class="text-muted"><?=__('<strong>%d</strong> kb', ceil($row['size']/1024))?></small></p>
@@ -66,11 +66,11 @@ echo $this->style('css/media.css');
             <a href="<?= $this->url('media', 'crud') ?>"
                class="btn btn-primary align-self-start mr-2"
                data-ajax-dialog data-ajax-method="get" data-modal-style="modal-lg">
-              <i class="fa fa-pencil"></i>
+              <i class="fas fa-pencil-alt"></i>
             </a>
             <a href="<?= $this->url('media', 'crud') ?>"
                class="btn btn-danger align-self-start" data-confirm data-ajax data-ajax-method="delete">
-              <i class="fa fa-trash-o"></i>
+              <i class="fa fa-trash"></i>
             </a>
           </div>
           <p class="card-text"><small class="text-muted" data-dz-size></small></p>

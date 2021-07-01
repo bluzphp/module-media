@@ -25,8 +25,8 @@ use Zend\Diactoros\UploadedFile;
  */
 class Manager
 {
-    const THUMB_HEIGHT = 196;
-    const THUMB_WIDTH = 196;
+    public const THUMB_HEIGHT = 196;
+    public const THUMB_WIDTH = 196;
 
     /**
      * @var Row
@@ -54,9 +54,10 @@ class Manager
     protected $uploadPath;
 
     /**
-     * @param  Row $media
-     * @param  UploadedFile $file
+     * @param Row          $media
+     * @param UploadedFile $file
      *
+     * @throws BadRequestException
      */
     public function __construct($media, $file)
     {
@@ -66,9 +67,6 @@ class Manager
 
         $this->file = $file;
         $this->name = $media->title ?? pathinfo($file->getClientFilename(), PATHINFO_FILENAME);
-
-        $this->checkError();
-        $this->checkType();
     }
 
     /**
@@ -89,7 +87,7 @@ class Manager
 
         $fullPath = PATH_PUBLIC.'/'.$uploadPath.'/'.$directory;
 
-        if (!is_dir($fullPath) && !@mkdir($fullPath, 0755, true)) {
+        if (!@mkdir($fullPath, 0755, true) && !is_dir($fullPath)) {
             throw new ConfigException('Upload folder is not exists, please create it');
         }
 
@@ -109,6 +107,8 @@ class Manager
      * Create thumbnail
      *
      * @return string
+     * @throws \Image\Exception
+     * @throws \ImagickException
      */
     public function createThumbnail()
     {
@@ -120,49 +120,6 @@ class Manager
         // crop full path
         $thumb = substr($thumb, strlen(PATH_PUBLIC) + 1);
         return $thumb;
-    }
-
-    /**
-     * Check Error code
-     *
-     * @return void
-     * @throws BadRequestException
-     */
-    protected function checkError()
-    {
-        // check upload errors
-        if ($this->file->getError() !== UPLOAD_ERR_OK) {
-            switch ($this->file->getError()) {
-                case UPLOAD_ERR_NO_FILE:
-                    $message = __('Please choose file for upload');
-                    break;
-                case UPLOAD_ERR_INI_SIZE:
-                    $message = __(
-                        'The uploaded file size should be lower than %s',
-                        ini_get('upload_max_filesize')
-                    );
-                    break;
-                default:
-                    $message = UploadedFile::ERROR_MESSAGES[$this->file->getError()];
-            }
-            throw new BadRequestException($message);
-        }
-    }
-
-    /**
-     * checkType
-     *
-     * @return void
-     * @throws BadRequestException
-     */
-    protected function checkType()
-    {
-        // check files' types
-        $allowTypes = ['image/png', 'image/jpg', 'image/jpeg', 'image/pjpeg', 'image/gif'];
-
-        if (!in_array($this->file->getClientMediaType(), $allowTypes, true)) {
-            throw new BadRequestException('Wrong file type');
-        }
     }
 
     /**

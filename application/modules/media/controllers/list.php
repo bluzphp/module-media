@@ -15,13 +15,24 @@ use Application\Media\Table;
 use Bluz\Controller\Controller;
 
 /**
- * @accept JSON
  * @return array
- * @throws Exception
  */
 return function () {
     /**
      * @var Controller $this
      */
-    return Table::getInstance()->getImages();
+    $this->useJson();
+
+    $images = Table::getInstance()->getImages();
+
+    $images = array_map(static function ($image) {
+        return [
+            'id' => $image->id,
+            'title' => $image->title,
+            'url' => $image->file,
+            'thumb' => $image->thumb
+        ];
+    }, $images);
+
+    return $images;
 };
